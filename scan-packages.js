@@ -100,6 +100,13 @@ function scanNodeModules(nodeModulesPath = './node_modules') {
   }
 }
 
+// Export functions for testing
+export { formatBytes, getDirectorySize, scanNodeModules };
+
 // Allow specifying path via command line argument
 const nodeModulesPath = process.argv[2] || './node_modules';
-scanNodeModules(nodeModulesPath);
+
+// Only run if this file is executed directly (not imported)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  scanNodeModules(nodeModulesPath);
+}
